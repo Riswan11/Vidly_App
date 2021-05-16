@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const express = require('express');
 const app = express();
-
+const mongoose = require('mongoose');
 //Connect to MongoDb
 const db = "mongodb + srv://Riswan11:1234@cluster0.c9ixt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
