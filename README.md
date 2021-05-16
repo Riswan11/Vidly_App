@@ -2,4 +2,6 @@
 An imaginary service application for renting out movies
 
 Technolgy used:
-- JavaScript, Express Node, Nodemon Joi
+- JavaScript
+- Node Express
+-Mongodb, Mongoose
