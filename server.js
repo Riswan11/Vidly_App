@@ -1,6 +1,9 @@
+const Joi = require('joi');
 const express = require('express');
 const app = express();
 
+//Calling and adding a piece of middleware
+app.use(express.json())
 
 const genres = [
     {
@@ -34,18 +37,32 @@ app.get('/vidly.com/api/genres', (req, res) => {
 })
 
 app.get('/vidly.com/api/:id', (req, res) => {
+
     const genre = genres.find(g => g.id === parseInt(req.params.id));
     if (!genre) res.status(404).send('The Genre was not found');
     res.send(genre);
+
+
+
 })
 
 app.post('/vidly.com/api/genres', (req, res) => {
+
+    if (!req.body.Series || req.body.Series.length < 3) {
+        res.status(400).send('This is a bad request')
+        return;
+    }
+
     const genre = [
         {
             id: genres.length + 1,
-            name: req.body.name
+            Series: req.body.Series,
+            year: req.body.Year,
+            PG: req.body.PG
         }
     ]
+    genres.push(genre);
+    res.send(genre);
 })
 
 
