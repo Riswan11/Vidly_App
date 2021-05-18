@@ -1,9 +1,36 @@
 const Joi = require('joi');
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
+let mongoose = require('mongoose');
+const Genre = require('./models/genres')
+
+
 //Connect to MongoDb
-const db = "mongodb + srv://Riswan11:1234@cluster0.c9ixt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+mongoose.connect('mongodb://localhost:127.0.0.1:27017/moviesApp', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log("Connection is Open")
+    })
+    .catch((err) => {
+        console.log('There was an error!! Try Again');
+        console.log(err);
+    })
+
+
+//Mongoose and mongo sound box
+app.get('/add-movie', (req, res) => {
+    const genre = new Genre({
+        year: 2019,
+        movieType: "Series",
+        movieName: "Power"
+    });
+    genre.save()
+        .then((result) => {
+            res.send(result)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+})
 
 //Calling and adding a piece of middleware
 app.use(express.json())
@@ -70,6 +97,7 @@ app.post('/vidly.com/api/genres', (req, res) => {
 
 
 const PORT = process.env.PORT || 3000;
+
 
 app.listen(PORT, () => {
     console.log(`Running on PORT Number ${PORT}`);
